@@ -381,20 +381,9 @@ class Simod():
         else:
             sup.create_csv_file_header(times, log_file)
 
-    # def export_canonical_model(self):
-    #     ns = {'qbp': "http://www.qbp-simulator.com/Schema201212"}
-    #     time_table = etree.tostring(self.parameters['time_table'], pretty_print=True)
-    #     time_table = xtd.parse(time_table, process_namespaces=True, namespaces=ns)
-    #     self.parameters['time_table'] = time_table
-    #     sup.create_json(self.parameters, os.path.join(
-    #         self.settings['output'],
-    #         self.settings['file'].split('.')[0]+'_canon.json'))
-
-
 # =============================================================================
 # Support methods
 # =============================================================================
-
     def split_timeline(self, size: float, one_ts: bool) -> None:
         """
         Split an event log dataframe by time to peform split-validation.
@@ -402,7 +391,6 @@ class Simod():
         If the testing set is smaller than the 10% of the log size
         the second method is sort by traces start and split taking the whole
         traces no matter if they are contained in the timeframe or not
-
         Parameters
         ----------
         size : float, validation percentage.
@@ -587,7 +575,7 @@ class DiscoveryOptimizer():
                 times_optimizer.best_parms['arr_confidence'])
 
         print('############ Final comparison ############')
-        self._test_model(times_optimizer.best_output, 
+        self._test_model(times_optimizer.best_output,
                          output_file,
                          structure_optimizer.file_name,
                          times_optimizer.file_name)
@@ -614,13 +602,13 @@ class DiscoveryOptimizer():
                                index=False)
         shutil.move(opt_strf, output_path)
         shutil.move(opt_timf, output_path)
-        
+
     def _export_canonical_model(self, best_output):
         print(os.path.join(
-            self.settings['gl']['output'], 
+            self.settings['gl']['output'],
             self.settings['gl']['file'].split('.')[0]+'.bpmn'))
         canonical_model = serialize_model(os.path.join(
-            self.settings['gl']['output'], 
+            self.settings['gl']['output'],
             self.settings['gl']['file'].split('.')[0]+'.bpmn'))
         # Users in rol data
         resource_table = pd.read_pickle(
@@ -635,7 +623,7 @@ class DiscoveryOptimizer():
         sup.create_json(canonical_model, os.path.join(
             self.settings['gl']['output'],
             self.settings['gl']['file'].split('.')[0]+'_canon.json'))
-        
+
     @timeit
     def read_inputs(self, **kwargs) -> None:
         # Event log reading
